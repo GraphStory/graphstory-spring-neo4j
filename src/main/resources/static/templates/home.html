@@ -1,0 +1,157 @@
+<div class="navbar-wrapper">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="gs-navbar-brand" href="/"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" >
+                <form class="form-inline" id="homelogin">
+                    <label class="sr-only" for="username">Name</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="username" v-model="username" placeholder="Please enter your username" style="width: 250px;">
+                    <button type="submit" class="btn btn-default" v-on:click="login">Submit</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<div id="inSlider" class="carousel" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Wait, Graphs?</h1>
+                    <h2>Yeah, Graphs. </h2><p>
+                    As far as the eye can see.</p>
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back one"></div>
+        </div>
+    </div>
+</div>
+<section id="features" class="container services">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fa fa-cloud feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">Multi-cloud</h3>
+                <p class="feature-sm-content">We can deploy where your servers already live: AWS, Azure, or Google
+                    Compute Engine, in any region. Need a special setup with private networks or IP-restricted
+                    access? We'll get it done. Just let us know. We're flexible like that.</p>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fa fa-graduation-cap  feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">Access to Graph Experts</h3>
+                <p class="feature-sm-content">New to graphs and help modeling? Want some pointers on getting the best query performance? We've been working with graphs since the early days and have helped customers - big and small - make the most of graphs.
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fa fa-server feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">Scaling to your needs</h3>
+                <p class="feature-sm-content">Building a proof of concept? Fire up a single, enterprise graph instance with a few clicks. Need to move up to a high-availability, production-ready cluster on-demand? We've got you covered!</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fa fa-chart-line feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">No artificial limits</h3>
+                <p class="feature-sm-content">We know you're not toying around, so none of our plans artifically limit the amount of data you can store or requests you can make.  We don't set arbitrary caps on the number of nodes or relationships for any of our graphs.</p>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fas fa-tachometer-alt feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">Graph Story Console</h3>
+                <p class="feature-sm-content">We created a feature-rich console for your development process so you don't have to do it all youself. See CPU, Memory and Disk utilization at glance. Get access to configs, logs, backup your database &amp; restore snapshots. </p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fa fa-lock feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">Enterprise Security for All</h3>
+                <p class="feature-sm-content">All of our plans include auth and access controls, 128 SSL for encryption in-transit and regular patch management. We also offer data encryption at-rest, customized security auditing and logging for Enterprise accounts.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="far fa-hdd feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">Automatic hot backups</h3>
+                <p class="feature-sm-content">We run daily, weekly, and monthly <em>hot</em> backups for you, with no downtime. Need backups stored in your own S3 bucket, or more retention? Let us know.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fa fa-clock feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">24 x 7 monitoring</h3>
+                <p class="feature-sm-content">We watch for resource spikes and potential impact to uptime. We work to ensure availability of your instances, and proactively reach-out if there are issues. Need additional monitoring? Talk to
+                    us and we'll make it happen.</p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="feature-sm">
+                <i class="fa fa-plug feature-sm-icon text-secondary"></i>
+                <h3 class="feature-sm-label">Graph Plug-ins</h3>
+                <p class="feature-sm-content"> Does your application need a specialized plugin? We're here to answer any questions you have, and help you be successful in building your
+                    graph-powered application.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="gray-section contact">
+    <div class="container">
+        <div class="row m-b-lg">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>Contact Us</h1>
+            </div>
+        </div>
+        <div class="row m-b-lg">
+            <div class="col-lg-3 col-lg-offset-3">
+                <address>
+                    <strong><span class="navy">Graph Story, Inc.</span></strong><br/>
+                    88 Union Avenue<br/>
+                    Memphis, TN 38103<br/>
+                    <abbr title="Phone">P:</abbr> (844) 472-7432
+                </address>
+            </div>
+            <div class="col-lg-4">
+                <p class="text-color">
+                    Web-based admin tools to easily start and stop instances, so you only pay for what you use. No upfront fees and no fixed monthly rates!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <a href="mailto:support@graphstory.com" class="btn btn-primary">Chat with us</a>
+                <p class="m-t-sm">
+                    we are so lonely
+                </p>
+                <ul class="list-inline social-icon">
+                    <li><a href="https://twitter.com/graphstoryco" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li><a href="https://www.linkedin.com/company/graph-story/about/"><i class="fab fa-linkedin"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
