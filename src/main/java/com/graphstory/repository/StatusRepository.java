@@ -45,7 +45,7 @@ public interface StatusRepository extends Neo4jRepository<Status,Long> {
     List<MappedStatus> getStatus(@Param("userId") String userId);
 
     @Query("MATCH  (u:User {userId: {userId} }), (s:Status {statusId: {statusId} }) " +
-            "RETURN EXISTS( (u)-[:LIKED_STATUS]-(s) ) ")
+            "RETURN EXISTS( (u)-[:LIKED_STATUS]->(s) ) ")
     Boolean Isliked(@Param("userId") String userId, @Param("statusId") String statusId);
 
 

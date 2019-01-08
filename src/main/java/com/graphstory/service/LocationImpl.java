@@ -5,6 +5,8 @@ import com.graphstory.model.User;
 import com.graphstory.repository.LocationRepository;
 import com.graphstory.repository.UserRepository;
 import com.graphstory.util.model.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationImpl extends GraphStoryService implements LocationService {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     LocationRepository locationRepository;

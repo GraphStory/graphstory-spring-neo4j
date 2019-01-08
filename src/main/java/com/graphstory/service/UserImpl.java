@@ -126,21 +126,26 @@ public class UserImpl extends GraphStoryService implements UserService  {
     @Transactional
     public void follow(String userId, String userIdToFollow){
 
-        // find the user that's logged in
-        User user = findByUserId(userId);
+        // make sure they don't already follow the user
+        if(!userRepository.follows(userId,userIdToFollow)){
+            // find the user that's logged in
+            User user = findByUserId(userId);
 
-        // find the user that the user that's logged in wants to follow
-        User userBeingFollowed = userRepository.findByUserId(userIdToFollow);
+            // find the user that the user that's logged in wants to follow
+            User userBeingFollowed = userRepository.findByUserId(userIdToFollow);
 
-        if (userBeingFollowed == null) {
-            throw new EntityNotFoundException("No user matches userIdToFollow provided");
+            if (userBeingFollowed == null) {
+                throw new EntityNotFoundException("No user matches userIdToFollow provided");
+            }
+
+            // add that new follower to their follower collection
+            userBeingFollowed.addFollower(user);
+
+            // save the userBeingFollowed, so they now have a new follower
+            userRepository.save(userBeingFollowed);
+        }else{
+            throw new EntityNotFoundException("user already follows this user");
         }
-
-        // add that new follower to their follower collection
-        userBeingFollowed.addFollower(user);
-
-        // save the userBeingFollowed, so they now have a new follower
-        userRepository.save(userBeingFollowed);
 
     }
 
@@ -148,21 +153,28 @@ public class UserImpl extends GraphStoryService implements UserService  {
     @Transactional
     public void unfollow(String userId, String userIdToUnFollow){
 
-        // find the user that's logged in
-        User user = findByUserId(userId);
+        // make sure it the rel does exist
+        if(userRepository.follows(userId,userIdToUnFollow)){
+            // find the user that's logged in
+            User user = findByUserId(userId);
 
-        // find the user that the user that's logged in wants to UNfollow
-        User userBeingUnFollowed = userRepository.findByUserId(userIdToUnFollow);
+            // find the user that the user that's logged in wants to UNfollow
+            User userBeingUnFollowed = userRepository.findByUserId(userIdToUnFollow);
 
-        if (userBeingUnFollowed == null) {
-            throw new EntityNotFoundException("No user matches userIdToUnFollow provided");
+            if (userBeingUnFollowed == null) {
+                throw new EntityNotFoundException("No user matches userIdToUnFollow provided");
+            }
+
+            // remove that existing follower from their follower collection
+            userBeingUnFollowed.removeFollower(user);
+
+            // save the userBeingUnFollowed, so they now that follower is removed
+            userRepository.save(userBeingUnFollowed);
+        }else{
+            throw new EntityNotFoundException("doesn't follow this user");
         }
 
-        // remove that existing follower from their follower collection
-        userBeingUnFollowed.removeFollower(user);
 
-        // save the userBeingUnFollowed, so they now that follower is removed
-        userRepository.save(userBeingUnFollowed);
     }
 
     // add zip code to a user
@@ -180,6 +192,8 @@ public class UserImpl extends GraphStoryService implements UserService  {
         // save the userBeingUnFollowed, so they now that follower is removed
         userRepository.save(user);
     }
+
+    @Transactional
 
 
     //TODO

@@ -96,7 +96,7 @@ public class SecureViewController extends GraphStoryViewController{
         return modelAndView;
     }
 
-
+    //TODO
     @RequestMapping(value = { "/console" }, method = RequestMethod.GET)
     public ModelAndView console(final HttpServletRequest req) {
         modelAndView = new ModelAndView("console");

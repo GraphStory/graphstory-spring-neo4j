@@ -19,4 +19,9 @@ public interface UserRepository extends Neo4jRepository<User,Long> {
     @Query("MATCH (u:User {userId: {userId}})-[:FOLLOWS]->(following) RETURN following LIMIT 25")
     Set<User> following(@Param("userId") String userId);
 
+
+    @Query("MATCH  (u:User {userId: {userId} }), (f:User {userId: {fid} }) " +
+            "RETURN EXISTS( (u)-[:FOLLOWS]->(f) ) ")
+    Boolean follows(@Param("userId") String userId, @Param("fid") String fid);
+
 }

@@ -11,23 +11,39 @@ public interface LocationRepository extends Neo4jRepository<Location,Long> {
     Location findByLocationId(String locationId);
     Location findByZip(String zip);
 
-    // list of locations with 50 miles
+    @Query("MATCH  (u:User {userId: {userId} }), (l:Location {locationId: {locationId} }) " +
+            "RETURN EXISTS( (u)-[:VIEWED]-(l) ) ")
+    Boolean hasBeenViewed(@Param("userId") String userId, @Param("locationId") String locationId);
+
 
     // location with products
+    /*
+    MATCH (l:Location)
+    WHERE (l)-[:LOCATION_HAS_PRODUCT]->()
+    RETURN l.zip as zipsThatHaveProducts
+     */
 
-    // location with products clicked by user
+
+    //TODO list of locations with 50 miles
+    /*
+    MATCH (l:Location {zip:"38119"})
+    WITH toFloat(l.latitude) as lat, toFloat(l.longitude) as lon
+    CALL spatial.withinDistance("geom",{latitude:lat,longitude:lon},50.0)
+    YIELD node as location
+    RETURN location
+     */
+
+
+
+    //TODO location with products clicked by user
     // show on main loc page and on loc id page
 
-    // location with products liked by user
+    //TODO location with products liked by user
     // show on main loc page and on loc id page
 
-    //stores closest to me and what products do they have, do they have products I liked, do they have products I viewd
+    //TODO stores closest to me and what products do they have, do they have products I liked, do they have products I viewd
     // this one above can help with inventory
 
 
 
-
-    @Query("MATCH  (u:User {userId: {userId} }), (l:Location {locationId: {locationId} }) " +
-            "RETURN EXISTS( (u)-[:VIEWED]-(l) ) ")
-    Boolean hasBeenViewed(@Param("userId") String userId, @Param("locationId") String locationId);
 }
