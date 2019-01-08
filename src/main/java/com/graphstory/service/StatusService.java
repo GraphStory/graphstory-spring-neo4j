@@ -19,12 +19,10 @@ public interface StatusService {
     // get the statuses of user and connected users
     List<MappedStatus> getStatuses(String userId);
 
-
-    // get the statuses based on the a word or words of user and connected users
-
-    // user searched for something
-
-    // user clicked something
-
     // user liked something
+    void like(String statusId, String userId);
+    // user unliked something
+    void unlike(String statusId, String userId);
+
+
 }

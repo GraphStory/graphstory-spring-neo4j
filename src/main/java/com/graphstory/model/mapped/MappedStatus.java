@@ -15,7 +15,7 @@ public class MappedStatus {
     @Getter @Setter Long timestamp;
     @Getter @Setter String username;
     @Getter @Setter Boolean owner;
-
+    @Getter @Setter Boolean liked;
 
     @Transient
     private  String timestampStr;

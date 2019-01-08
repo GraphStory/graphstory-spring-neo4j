@@ -1,0 +1,17 @@
+package com.graphstory.model.mapped;
+
+import com.graphstory.model.Category;
+import com.graphstory.model.Product;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.neo4j.annotation.QueryResult;
+
+import java.util.Set;
+
+@QueryResult
+public class MappedProduct {
+    @Getter @Setter Product product;
+    @Getter @Setter
+    Set<Category> categories;
+
+}

@@ -32,6 +32,7 @@ public class GraphStoryViewController {
     public void defaultModelAndViewObjects(HttpServletRequest req, String pageTitle) {
         modelAndView.addObject("title", pageTitle);
         modelAndView.addObject("username", SessionUtils.get(req,GraphStoryConstants.username));
+        modelAndView.addObject("userId", SessionUtils.get(req,GraphStoryConstants.userId));
     }
 }
 

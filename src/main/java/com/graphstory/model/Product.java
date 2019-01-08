@@ -26,29 +26,13 @@ public class Product {
     @Getter @Setter private String group;
     @Getter @Setter private Integer salesrank;
 
-
     @Relationship(type = RelationshipType.HAS_BASE_CATEGORY_OF)
     @Getter @Setter private Set<Category> categories;
 
     @Relationship(type = RelationshipType.PRODUCT_SIMILAR_TO_PRODUCT)
     @Getter @Setter private Set<Product> similarProducts;
 
-
     @Relationship(type = RelationshipType.PRODUCT_HAS_REVIEW)
     @Getter @Setter private Set<Review> reviews;
 
-    @Relationship(type = RelationshipType.TAGGED)
-    @Getter @Setter private Set<Word> productTags;
-
-
 }
-
-
-/*
-    MATCH (p:Product {productId: ""})-[HAS_BASE_CATEGORY_OF:]->(baseCats:Category)
-    WITH p,baseCat
-    MATCH catpaths=(baseCats)-[:IS_SUBCATEGORY_OF*]->(:Category)
-    WITH p,EXTRACT(x IN NODES(catpaths)[..-1] | x.id) AS catNames
-    WITH p,catNames
-
- */

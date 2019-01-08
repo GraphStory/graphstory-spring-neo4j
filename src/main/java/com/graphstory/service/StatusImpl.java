@@ -31,6 +31,26 @@ public class StatusImpl extends GraphStoryService implements StatusService {
         return statusRepository.getStatus(userId);
     }
 
+    private Status getStatus(String statusId){
+        Status status = statusRepository.findByStatusId(statusId);
+
+        if (status == null) {
+            throw new EntityNotFoundException("No status matches statusId provided");
+        }
+        return status;
+    }
+
+    private User getUser(String userId){
+        // find the user that's logged in
+        User user = userRepository.findByUserId(userId);
+
+        if (user == null) {
+            throw new EntityNotFoundException("No user matches id provided");
+        }
+
+        return user;
+    }
+
     // create Status
     @Transactional
     public Status create(String statusText, String tagstr, String userId){
@@ -39,11 +59,7 @@ public class StatusImpl extends GraphStoryService implements StatusService {
             throw new EntityNotFoundException("No status text provided");
         }
 
-        User user = userRepository.findByUserId(userId);
-
-        if(user == null){
-            throw new EntityNotFoundException("No status text provided");
-        }
+        User user = getUser(userId);
 
         Status currentStatus = statusRepository.currentStatus(userId);
 
@@ -51,7 +67,9 @@ public class StatusImpl extends GraphStoryService implements StatusService {
         status.setStatusId(uuidGen());
         status.setUserIdStatusId(StringUtils.join(userId,status.getStatusId()));
         status.setStatusText(statusText);
-        status.setTagstr(tagstr);
+        if(StringUtils.isNotEmpty(tagstr)){
+            status.setTagstr(tagstr);
+        }
         status.setTimestamp(dateAsLong());
 
         try{
@@ -88,7 +106,10 @@ public class StatusImpl extends GraphStoryService implements StatusService {
         }
 
         status.setStatusText(statusText);
-        status.setTagstr(tagstr);
+
+        if(StringUtils.isNotEmpty(tagstr)){
+            status.setTagstr(tagstr);
+        }
 
         statusRepository.save(status);
 
@@ -99,4 +120,45 @@ public class StatusImpl extends GraphStoryService implements StatusService {
     public void delete(String statusId, String userId){
         statusRepository.deleteStatus(statusId,userId);
     }
+
+
+    // like a status
+    @Transactional
+    public void like(String statusId, String userId){
+
+        // make sure it doesn't exist
+        if(!statusRepository.Isliked(userId,statusId)){
+            // find the user that's logged in
+            User user = getUser(userId);
+
+            logger.info(user.getUserId());
+            Status status = getStatus(statusId);
+            user.likeStatus(status);
+            // save the user
+            userRepository.save(user);
+        }else{
+            throw new EntityNotFoundException("already likes it");
+        }
+
+    }
+
+    // unlike a status
+    @Transactional
+    public void unlike(String statusId, String userId){
+
+        // make sure it exists
+        if(statusRepository.Isliked(userId,statusId)){
+            // find the user that's logged in
+            User user = getUser(userId);
+
+            logger.info(user.getUserId());
+            Status status = getStatus(statusId);
+            user.unlikeStatus(status);
+            // save the user
+            userRepository.save(user);
+        }else{
+            throw new EntityNotFoundException("doesn't currently like it");
+        }
+    }
+
 }

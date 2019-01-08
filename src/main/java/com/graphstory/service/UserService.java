@@ -31,15 +31,17 @@ public interface UserService {
     // collection of who user follows
     Set<User> whoIsUserFollowing(String userId);
 
+    void addZip(String userId, String zip);
+
+    //TODO
     // words connected to a user (searches and tags)
     Set<Word> userWords(String userId);
 
+    //TODO
     // tags connected to a user
     Set<Word> userTags(String userId);
 
+    //TODO
     // searches connected to a user
     Set<Word> userSearches(String userId);
-
-
-    //TODO get the words of user and connected users
 }

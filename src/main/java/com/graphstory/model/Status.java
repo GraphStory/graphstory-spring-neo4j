@@ -8,8 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.neo4j.ogm.annotation.*;
 
-import java.util.Set;
-
 @NoArgsConstructor
 @ToString
 @NodeEntity
@@ -36,10 +34,6 @@ public class Status {
         }
         return timestampDate;
     }
-
-    @Relationship(type = RelationshipType.TAGGED)
-    @ApiModelProperty(hidden = true)
-    @Getter @Setter private Set<Word> statusTags;
 
     @Relationship(type = RelationshipType.CURRENT_STATUS, direction = Relationship.INCOMING)
     @ApiModelProperty(hidden = true)

@@ -3,16 +3,16 @@ package com.graphstory.controller.rest;
 
 import com.graphstory.model.User;
 import com.graphstory.service.UserService;
+import com.graphstory.util.model.ResponseString;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
@@ -99,10 +99,12 @@ public class UserController {
             @ApiResponse(code = 404, message = "Property not provided"),
             @ApiResponse(code = 500, message = "Failure of the system")
     })
-    @RequestMapping( path = "/follow/{userId}/{userIdToFollow}", method = PUT, produces = "application/json")
-    public ResponseEntity follow(@PathVariable String userId, @PathVariable String userIdToFollow) {
+    @RequestMapping( path = "/follow/{userId}/{userIdToFollow}", method = GET, produces = "application/json")
+    public ResponseString follow(@PathVariable String userId, @PathVariable String userIdToFollow) {
         userService.follow(userId,userIdToFollow);
-        return new ResponseEntity(HttpStatus.OK);
+        ResponseString rs= new ResponseString();
+        rs.setResponse("success");
+        return rs;
     }
 
     // unfollow a user
@@ -116,10 +118,12 @@ public class UserController {
             @ApiResponse(code = 404, message = "Property not provided"),
             @ApiResponse(code = 500, message = "Failure of the system")
     })
-    @RequestMapping( path = "/unfollow/{userId}/{userIdToUnFollow}", method = PUT, produces = "application/json")
-    public ResponseEntity unfollow(@PathVariable String userId, @PathVariable String userIdToUnFollow) {
+    @RequestMapping( path = "/unfollow/{userId}/{userIdToUnFollow}", method = GET, produces = "application/json")
+    public ResponseString unfollow(@PathVariable String userId, @PathVariable String userIdToUnFollow) {
         userService.unfollow(userId,userIdToUnFollow);
-        return new ResponseEntity(HttpStatus.OK);
+        ResponseString rs= new ResponseString();
+        rs.setResponse("success");
+        return rs;
     }
 
 
@@ -156,4 +160,34 @@ public class UserController {
     public @ResponseBody Set<User> following(@PathVariable String userId) {
         return userService.whoIsUserFollowing(userId);
     }
+
+
+    // a zip code to a user
+    @ApiOperation(value = "", nickname = "add zip code")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "userId of user", required = true, dataType = "string", paramType = "path", defaultValue = ""),
+            @ApiImplicitParam(name = "zip", value = "zip code of user", required = true, dataType = "string", paramType = "path", defaultValue = "")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully added zip code User"),
+            @ApiResponse(code = 404, message = "Property not provided"),
+            @ApiResponse(code = 500, message = "Failure of the system")
+    })
+    @RequestMapping( path = "/addzip/{userId}/{zip}", method = GET, produces = "application/json")
+    public ResponseString addZip(@PathVariable String userId, @PathVariable String zip) {
+        userService.addZip(userId,zip);
+        ResponseString rs= new ResponseString();
+        rs.setResponse("success");
+        return rs;
+    }
+
+
+    //TODO
+    // words connected to a user (searches and tags)
+
+    //TODO
+    // tags connected to a user
+
+    //TODO
+    // searches connected to a user
 }

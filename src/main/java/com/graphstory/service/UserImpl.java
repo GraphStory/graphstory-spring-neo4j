@@ -1,7 +1,9 @@
 package com.graphstory.service;
 
+import com.graphstory.model.Location;
 import com.graphstory.model.User;
 import com.graphstory.model.Word;
+import com.graphstory.repository.LocationRepository;
 import com.graphstory.repository.UserRepository;
 import com.graphstory.util.model.EntityNotFoundException;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +23,9 @@ public class UserImpl extends GraphStoryService implements UserService  {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
 
     // create user
     public User create(String username){
@@ -83,6 +88,17 @@ public class UserImpl extends GraphStoryService implements UserService  {
         return obj;
     }
 
+    private Location getLocationByZip(String zip){
+        // find the location
+        Location location = locationRepository.findByZip(zip);
+
+        if (location == null) {
+            throw new EntityNotFoundException("No zip matches zip provided");
+        }
+
+        return location;
+    }
+
     // find by username
     public User findByUsername(String username){
 
@@ -111,11 +127,7 @@ public class UserImpl extends GraphStoryService implements UserService  {
     public void follow(String userId, String userIdToFollow){
 
         // find the user that's logged in
-        User user = userRepository.findByUserId(userId);
-
-        if (user == null) {
-            throw new EntityNotFoundException("No user matches id provided");
-        }
+        User user = findByUserId(userId);
 
         // find the user that the user that's logged in wants to follow
         User userBeingFollowed = userRepository.findByUserId(userIdToFollow);
@@ -137,13 +149,7 @@ public class UserImpl extends GraphStoryService implements UserService  {
     public void unfollow(String userId, String userIdToUnFollow){
 
         // find the user that's logged in
-        User user = userRepository.findByUserId(userId);
-
-        logger.info(user.getUsername());
-
-        if (user == null) {
-            throw new EntityNotFoundException("No user matches id provided");
-        }
+        User user = findByUserId(userId);
 
         // find the user that the user that's logged in wants to UNfollow
         User userBeingUnFollowed = userRepository.findByUserId(userIdToUnFollow);
@@ -152,9 +158,6 @@ public class UserImpl extends GraphStoryService implements UserService  {
             throw new EntityNotFoundException("No user matches userIdToUnFollow provided");
         }
 
-        logger.info(userBeingUnFollowed.getUsername());
-        logger.info(userBeingUnFollowed.getFollowers().toString());
-
         // remove that existing follower from their follower collection
         userBeingUnFollowed.removeFollower(user);
 
@@ -162,16 +165,36 @@ public class UserImpl extends GraphStoryService implements UserService  {
         userRepository.save(userBeingUnFollowed);
     }
 
+    // add zip code to a user
+    @Transactional
+    public void addZip(String userId, String zip){
+
+        // find the user that's logged in
+        User user = findByUserId(userId);
+        Location location = getLocationByZip(zip);
+
+        user.setZip(location.getZip());
+        user.setLongitude(location.getLongitude());
+        user.setLatitude(location.getLatitude());
+
+        // save the userBeingUnFollowed, so they now that follower is removed
+        userRepository.save(user);
+    }
+
+
+    //TODO
     // words connected to a user (searches and tags)
     public Set<Word> userWords(String userId){
         return null;
     }
 
+    //TODO
     // tags connected to a user
     public Set<Word> userTags(String userId){
         return null;
     }
 
+    //TODO
     // searches connected to a user
     public Set<Word> userSearches(String userId){
         return null;

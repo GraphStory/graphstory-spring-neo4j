@@ -1,7 +1,7 @@
 package com.graphstory.controller.view;
 
-import com.graphstory.model.mapped.MappedStatus;
 import com.graphstory.service.StatusService;
+import com.graphstory.service.UserService;
 import com.graphstory.util.GraphStoryConstants;
 import com.graphstory.util.SessionUtils;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("/app")
@@ -24,6 +23,9 @@ public class SecureViewController extends GraphStoryViewController{
 
     @Autowired
     StatusService statusService;
+
+    @Autowired
+    UserService userService;
 
 
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
@@ -38,14 +40,9 @@ public class SecureViewController extends GraphStoryViewController{
     public ModelAndView timeline(final HttpServletRequest req) {
         modelAndView = new ModelAndView("timeline");
 
-
-        logger.info(SessionUtils.get(req,GraphStoryConstants.userId).toString());
-
-        List<MappedStatus> mappedStatuses = statusService.getStatuses(SessionUtils.get(req,GraphStoryConstants.userId).toString());
-
-        //
-
-        modelAndView.addObject("statuses", mappedStatuses);
+        modelAndView.addObject("statuses", statusService.getStatuses(SessionUtils.get(req,GraphStoryConstants.userId).toString()));
+        modelAndView.addObject("whoIsFollowingUser", userService.whoIsFollowingUser(SessionUtils.get(req,GraphStoryConstants.userId).toString()));
+        modelAndView.addObject("whoIsUserFollowing", userService.whoIsUserFollowing(SessionUtils.get(req,GraphStoryConstants.userId).toString()));
 
         defaultModelAndViewObjects(req,"Social Timeline");
         return modelAndView;

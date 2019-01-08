@@ -2,19 +2,15 @@ package com.graphstory.service;
 
 public interface RecommendationService {
 
-    // type ahead
+    // type ahead on categories
 
-    // did you mean
-
-    // list of last products viewed
+    // list of last products clicked
 
     // purchases by user's connections
 
     // customers who bought this also bought this things
 
     // purchases by user's connections' connections
-
-    // purchases by user's connections and have activated the same tag as the user
 
     // purchases by user's connections who are near the user and have activated the same tag as the user
 
@@ -26,3 +22,4 @@ public interface RecommendationService {
 
     // content recommendations based on my clicks, searches, tags & statuses
 }
+
