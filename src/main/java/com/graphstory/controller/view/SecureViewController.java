@@ -1,5 +1,7 @@
 package com.graphstory.controller.view;
 
+import com.graphstory.model.mapped.MappedProduct;
+import com.graphstory.service.ProductService;
 import com.graphstory.service.StatusService;
 import com.graphstory.service.UserService;
 import com.graphstory.util.GraphStoryConstants;
@@ -26,6 +28,10 @@ public class SecureViewController extends GraphStoryViewController{
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ProductService productService;
+
 
 
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
@@ -83,8 +89,9 @@ public class SecureViewController extends GraphStoryViewController{
     @RequestMapping(value = { "/productdetail/{productId}" }, method = RequestMethod.GET)
     public ModelAndView productdetail(final HttpServletRequest req, @PathVariable String productId) {
         modelAndView = new ModelAndView("productdetail");
-
-        defaultModelAndViewObjects(req,"");
+        MappedProduct result =productService.getProductForView(productId);
+        modelAndView.addObject("result", result);
+        defaultModelAndViewObjects(req,result.getProduct().getTitle());
         return modelAndView;
     }
 

@@ -1,41 +1,7 @@
 <div class="row" id="console">
     <div class="col-lg-7">
-        {{#statuses}}
-        <div class="social-feed-box">
-            <div class="social-avatar">
-                <a href="" class="float-left">
-                    <img alt="image" src="/img/profile_small.jpg">
-                </a>
-                <div class="media-body">
-                    <a href="#">
-                        {{username}} {{@index}}
-                    </a>
-                    <small class="text-muted">{{timestampStr}}</small>
-                </div>
-            </div>
-            <div class="social-body">
-                <p>
-                    {{statusText}}
-                </p>
-                {{#liked}}
-                <button class="btn btn-primary btn-xs liked" v-on:click="like({{statusId}}, $event)" id="{{statusId}}"><i class=''></i> You like this</button>
-                {{/liked}}
-                {{^liked}}
-                <button class="btn btn-outline-primary btn-xs notlikedyet" v-on:click="like({{statusId}}, $event)" id="{{statusId}}"><i class=''></i> Like this!</button>
-                {{/liked}}
-            </div>
-        </div>
-        {{/statuses}}
+        build this!
     </div>
     <div  class="col-lg-5">
-        <h2>Following</h2>
-        {{#whoIsUserFollowing}}
-        {{username}}<br/>
-        {{/whoIsUserFollowing}}
-
-        <h2>Followers</h2>
-        {{#whoIsFollowingUser}}
-        {{username}}<br/>
-        {{/whoIsFollowingUser}}
     </div>
 </div>
