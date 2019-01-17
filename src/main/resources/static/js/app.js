@@ -14,7 +14,7 @@ $(document).ready(function () {
 });
 
 if(document.getElementById("timeline")){
-    var profile = new Vue({
+    var timeline = new Vue({
         el: '#timeline',
         delimiters: ['${', '}'],
         data: {
@@ -60,9 +60,41 @@ if(document.getElementById("timeline")){
     });
 }
 
+
+if(document.getElementById("productspage")){
+    var productspage = new Vue({
+        el: '#productspage',
+        delimiters: ['${', '}'],
+        data: {
+        },
+        mounted: function () {
+        },
+        methods: {
+            viewed: function (id, e) {
+
+                e.preventDefault();
+
+                var productId=id;
+                var userId=$("#currentUserId").val();
+
+                $.get("/api/product/click/"+productId+"/"+userId, function (response) {
+                }).fail(function(response) {
+                    var r = jQuery.parseJSON(response.responseText);
+                    console.log(r.message);
+                });
+            }
+        }
+
+    });
+}
+
+
+
+
+
 if(document.getElementById("profile")){
     var profile = new Vue({
-        el: '#timeline',
+        el: '#profile',
         delimiters: ['${', '}'],
         data: {
         },
@@ -72,44 +104,14 @@ if(document.getElementById("profile")){
             save: function (id, e) {
 
                 e.preventDefault();
-
-                var statusId=id;
-                var userId=$("#currentUserId").val();
-
-                if($("#"+id).hasClass( "liked" )){
-                    $("#"+id).addClass("btn-outline-primary");
-                    $("#"+id).addClass("notlikedyet");
-                    $("#"+id).removeClass("btn-primary");
-                    $("#"+id).removeClass("liked");
-                    $("#"+id).text("Like this!");
-
-                    $.get("/api/status/unlike/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-
-                }else{
-                    $("#"+id).addClass("btn-primary");
-                    $("#"+id).addClass("liked");
-                    $("#"+id).removeClass("btn-outline-primary");
-                    $("#"+id).removeClass("notlikedyet");
-                    $("#"+id).text("You liked this");
-
-                    $.get("/api/status/like/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-                }
             }
         }
     });
 }
 
 if(document.getElementById("productSearch")){
-    var profile = new Vue({
-        el: '#timeline',
+    var productSearch = new Vue({
+        el: '#productSearch',
         delimiters: ['${', '}'],
         data: {
         },
@@ -120,35 +122,7 @@ if(document.getElementById("productSearch")){
 
                 e.preventDefault();
 
-                var statusId=id;
-                var userId=$("#currentUserId").val();
 
-                if($("#"+id).hasClass( "liked" )){
-                    $("#"+id).addClass("btn-outline-primary");
-                    $("#"+id).addClass("notlikedyet");
-                    $("#"+id).removeClass("btn-primary");
-                    $("#"+id).removeClass("liked");
-                    $("#"+id).text("Like this!");
-
-                    $.get("/api/status/unlike/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-
-                }else{
-                    $("#"+id).addClass("btn-primary");
-                    $("#"+id).addClass("liked");
-                    $("#"+id).removeClass("btn-outline-primary");
-                    $("#"+id).removeClass("notlikedyet");
-                    $("#"+id).text("You liked this");
-
-                    $.get("/api/status/like/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-                }
             },
             goToProduct: function (id, e) {
                 e.preventDefault();
@@ -160,62 +134,11 @@ if(document.getElementById("productSearch")){
     });
 }
 
-if(document.getElementById("products")){
-    var profile = new Vue({
-        el: '#timeline',
-        delimiters: ['${', '}'],
-        data: {
-        },
-        mounted: function () {
-        },
-        methods: {
-            show: function (id, e) {
 
-                e.preventDefault();
-
-                var statusId=id;
-                var userId=$("#currentUserId").val();
-
-                if($("#"+id).hasClass( "liked" )){
-                    $("#"+id).addClass("btn-outline-primary");
-                    $("#"+id).addClass("notlikedyet");
-                    $("#"+id).removeClass("btn-primary");
-                    $("#"+id).removeClass("liked");
-                    $("#"+id).text("Like this!");
-
-                    $.get("/api/status/unlike/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-
-                }else{
-                    $("#"+id).addClass("btn-primary");
-                    $("#"+id).addClass("liked");
-                    $("#"+id).removeClass("btn-outline-primary");
-                    $("#"+id).removeClass("notlikedyet");
-                    $("#"+id).text("You liked this");
-
-                    $.get("/api/status/like/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-                }
-            },
-            goToProduct: function (id, e) {
-                e.preventDefault();
-
-                // save product view
-            },
-        }
-
-    });
-}
 
 if(document.getElementById("productFinder")){
-    var profile = new Vue({
-        el: '#timeline',
+    var productFinder = new Vue({
+        el: '#productFinder',
         delimiters: ['${', '}'],
         data: {
         },
@@ -224,38 +147,7 @@ if(document.getElementById("productFinder")){
         methods: {
             search: function (id, e) {
 
-
                 e.preventDefault();
-
-                var statusId=id;
-                var userId=$("#currentUserId").val();
-
-                if($("#"+id).hasClass( "liked" )){
-                    $("#"+id).addClass("btn-outline-primary");
-                    $("#"+id).addClass("notlikedyet");
-                    $("#"+id).removeClass("btn-primary");
-                    $("#"+id).removeClass("liked");
-                    $("#"+id).text("Like this!");
-
-                    $.get("/api/status/unlike/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-
-                }else{
-                    $("#"+id).addClass("btn-primary");
-                    $("#"+id).addClass("liked");
-                    $("#"+id).removeClass("btn-outline-primary");
-                    $("#"+id).removeClass("notlikedyet");
-                    $("#"+id).text("You liked this");
-
-                    $.get("/api/status/like/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-                }
             },
             goToProduct: function (id, e) {
                 e.preventDefault();
@@ -268,16 +160,14 @@ if(document.getElementById("productFinder")){
 
                 // save location view
 
-
             }
-
         }
     });
 }
 
 if(document.getElementById("location")){
-    var profile = new Vue({
-        el: '#timeline',
+    var location = new Vue({
+        el: '#location',
         delimiters: ['${', '}'],
         data: {
         },
@@ -286,7 +176,6 @@ if(document.getElementById("location")){
         methods: {
             goToProduct: function (id, e) {
                 e.preventDefault();
-
                 // save product view
             },
         }
@@ -294,8 +183,8 @@ if(document.getElementById("location")){
 }
 
 if(document.getElementById("productDetail")){
-    var profile = new Vue({
-        el: '#timeline',
+    var productDetail = new Vue({
+        el: '#productDetail',
         delimiters: ['${', '}'],
         data: {
         },
@@ -303,46 +192,15 @@ if(document.getElementById("productDetail")){
         },
         methods: {
             like: function (id, e) {
-
                 e.preventDefault();
-
-                var statusId=id;
-                var userId=$("#currentUserId").val();
-
-                if($("#"+id).hasClass( "liked" )){
-                    $("#"+id).addClass("btn-outline-primary");
-                    $("#"+id).addClass("notlikedyet");
-                    $("#"+id).removeClass("btn-primary");
-                    $("#"+id).removeClass("liked");
-                    $("#"+id).text("Like this!");
-
-                    $.get("/api/status/unlike/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-
-                }else{
-                    $("#"+id).addClass("btn-primary");
-                    $("#"+id).addClass("liked");
-                    $("#"+id).removeClass("btn-outline-primary");
-                    $("#"+id).removeClass("notlikedyet");
-                    $("#"+id).text("You liked this");
-
-                    $.get("/api/status/like/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-                }
             }
         }
     });
 }
 
 if(document.getElementById("friendFinder")){
-    var profile = new Vue({
-        el: '#timeline',
+    var friendFinder = new Vue({
+        el: '#friendFinder',
         delimiters: ['${', '}'],
         data: {
         },
@@ -353,38 +211,7 @@ if(document.getElementById("friendFinder")){
 
             },
             follow: function (id, e) {
-
                 e.preventDefault();
-
-                var statusId=id;
-                var userId=$("#currentUserId").val();
-
-                if($("#"+id).hasClass( "liked" )){
-                    $("#"+id).addClass("btn-outline-primary");
-                    $("#"+id).addClass("notlikedyet");
-                    $("#"+id).removeClass("btn-primary");
-                    $("#"+id).removeClass("liked");
-                    $("#"+id).text("Like this!");
-
-                    $.get("/api/status/unlike/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-
-                }else{
-                    $("#"+id).addClass("btn-primary");
-                    $("#"+id).addClass("liked");
-                    $("#"+id).removeClass("btn-outline-primary");
-                    $("#"+id).removeClass("notlikedyet");
-                    $("#"+id).text("You liked this");
-
-                    $.get("/api/status/like/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-                }
             },
             unfollow: function (id, e) {
 
@@ -394,47 +221,17 @@ if(document.getElementById("friendFinder")){
 }
 
 if(document.getElementById("console")){
-    var profile = new Vue({
-        el: '#timeline',
+    var console = new Vue({
+        el: '#console',
         delimiters: ['${', '}'],
         data: {
         },
         mounted: function () {
         },
         methods: {
-            like: function (id, e) {
-
+            show: function (e) {
                 e.preventDefault();
-
-                var statusId=id;
-                var userId=$("#currentUserId").val();
-
-                if($("#"+id).hasClass( "liked" )){
-                    $("#"+id).addClass("btn-outline-primary");
-                    $("#"+id).addClass("notlikedyet");
-                    $("#"+id).removeClass("btn-primary");
-                    $("#"+id).removeClass("liked");
-                    $("#"+id).text("Like this!");
-
-                    $.get("/api/status/unlike/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-
-                }else{
-                    $("#"+id).addClass("btn-primary");
-                    $("#"+id).addClass("liked");
-                    $("#"+id).removeClass("btn-outline-primary");
-                    $("#"+id).removeClass("notlikedyet");
-                    $("#"+id).text("You liked this");
-
-                    $.get("/api/status/like/"+statusId+"/"+userId, function (response) {
-                    }).fail(function(response) {
-                        var r = jQuery.parseJSON(response.responseText);
-                        alert(r.message);
-                    });
-                }
+                alert('asdf')
             }
         }
     });

@@ -1,6 +1,7 @@
 package com.graphstory.controller.rest;
 
 
+import com.graphstory.model.Location;
 import com.graphstory.model.Status;
 import com.graphstory.service.LocationService;
 import com.graphstory.util.model.ResponseString;
@@ -25,6 +26,13 @@ public class LocationController {
 
     @Autowired
     LocationService locationService;
+
+    @ApiOperation(value = "", nickname = "get location", response = Location.class)
+    @RequestMapping (path = "/getsomething/{locationId}", method= GET)
+    public @ResponseBody
+    Location getANewLocation(@PathVariable String locationId){
+        return locationService.getloc(locationId);
+    }
 
     //viewed location
     @ApiOperation(value = "", nickname = "viewed location", response = Status.class)

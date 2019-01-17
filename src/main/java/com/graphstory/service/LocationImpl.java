@@ -33,6 +33,10 @@ public class LocationImpl extends GraphStoryService implements LocationService {
         return user;
     }
 
+    public Location getloc(String locationId){
+        return locationRepository.getByLocationId(locationId);
+    }
+
     private Location getLocation(String locationId){
         // find the location
         Location location = locationRepository.findByLocationId(locationId);

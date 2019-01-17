@@ -73,6 +73,9 @@ public class SecureViewController extends GraphStoryViewController{
     @RequestMapping(value = { "/products" }, method = RequestMethod.GET)
     public ModelAndView products(final HttpServletRequest req) {
         modelAndView = new ModelAndView("products");
+        //TODO remove during your build
+        modelAndView.addObject("productId", "078510870X");
+        //TODO remove during your build
 
         defaultModelAndViewObjects(req,"YAMAZON");
         return modelAndView;
@@ -81,6 +84,7 @@ public class SecureViewController extends GraphStoryViewController{
     @RequestMapping(value = { "/productSearch" }, method = RequestMethod.GET)
     public ModelAndView productSearch(final HttpServletRequest req) {
         modelAndView = new ModelAndView("productSearch");
+
 
         defaultModelAndViewObjects(req,"Product Search");
         return modelAndView;
