@@ -22,5 +22,5 @@
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/src/main/java/com/graphstory/GraphStorySpringNeo4jAppConfig.java
-/src/main/java/com/graphstory/GraphStorySpringNeo4jAppConfig.java
+GraphStorySpringNeo4jAppConfig.java
+src/main/java/com/graphstory/GraphStorySpringNeo4jAppConfig.java
