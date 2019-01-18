@@ -35,7 +35,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 })
 @EnableSwagger2
 @EnableAutoConfiguration(exclude = MustacheAutoConfiguration.class)
-public class GraphStorySpringNeo4jAppConfig implements WebMvcConfigurer {
+public class AppConfig implements WebMvcConfigurer {
 
     @Value(value = "${com.graphstory.neo4j.uri}")
     private String uri;
@@ -52,7 +52,7 @@ public class GraphStorySpringNeo4jAppConfig implements WebMvcConfigurer {
                 //TODO use this ONLY for development
                 //.autoIndex("assert")
                 .uri(uri)
-                .credentials("U", "P")
+                .credentials(System.getenv("neo4jUser"), System.getenv("neo4jPassword"))
                 .build();
         return configuration;
     }
