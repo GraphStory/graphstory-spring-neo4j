@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public interface CategoryRepository extends Neo4jRepository<Category,Long> {
 
     // autocomplete categories based on search
-    @Query("MATCH (c:Category) WHERE lower(c.categoryName)=~lower({s})  RETURN c.categoryName ORDER BY c.categoryName")
+    @Query("MATCH (c:Category) WHERE lower(c.categoryName)=~lower($s)  RETURN c.categoryName ORDER BY c.categoryName")
     LinkedList<String> searchForCategory(@Param("s") String s);
 
 

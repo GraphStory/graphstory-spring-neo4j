@@ -12,4 +12,5 @@ public class ResponseString {
 	@Getter
     @Setter
     private String response;
+
 }

@@ -53,18 +53,20 @@ public class AppConfig implements WebMvcConfigurer {
                 //.autoIndex("assert")
                 .uri(uri)
                 .credentials(System.getenv("neo4jUser"), System.getenv("neo4jPassword"))
+                .database("kcdc")
                 .build();
         return configuration;
     }
 
     @Bean
-    public Neo4jTransactionManager transactionManager() {
+    public Neo4jTransactionManager neo4jTransactionManager() {
         return new Neo4jTransactionManager(sessionFactory());
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         if (!registry.hasMappingForPattern("/**")) {
+
             registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 
         }

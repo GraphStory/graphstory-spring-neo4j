@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 public interface ProductRepository extends Neo4jRepository<Product,Long> {
 
 
-    @Query("MATCH (p:Product {productId: {productId}  }) " +
+    @Query("MATCH (p:Product {productId: $productId  }) " +
             "RETURN p")
     Product getProductByProductId( @Param("productId") String productId);
 
-    @Query("MATCH (p:Product {productId: {productId}  })-[:HAS_BASE_CATEGORY_OF]-(baseCats:Category) " +
+    @Query("MATCH (p:Product {productId: $productId  })-[:HAS_BASE_CATEGORY_OF]-(baseCats:Category) " +
             "WITH p,baseCats " +
             "MATCH catpaths=(baseCats)<-[:IS_PARENT_CATEGORY_OF*]-(c:Category) " +
             "WHERE c.depthFromParent=0 " +
@@ -25,15 +25,15 @@ public interface ProductRepository extends Neo4jRepository<Product,Long> {
             "RETURN p as product,newc as categories,COLLECT(review) as reviews,Collect(l) as locations, Collect(similar) as similar ")
     MappedProduct getProductByProductIdForView(@Param("productId") String productId);
 
-    @Query("MATCH  (u:User {userId: {userId} }), (p:Product {productId: {productId} }) " +
+    @Query("MATCH  (u:User {userId: $userId }), (p:Product {productId: $productId }) " +
             "RETURN EXISTS( (u)-[:LIKED_PRODUCT]->(p) ) ")
     Boolean Isliked(@Param("userId") String userId, @Param("productId") String productId);
 
-    @Query("MATCH  (u:User {userId: {userId} }), (p:Product {productId: {productId} }) " +
+    @Query("MATCH  (u:User {userId: $userId }), (p:Product {productId: $productId }) " +
             "RETURN EXISTS( (u)-[:CLICKED]->(p) ) ")
     Boolean hasBeenClicked(@Param("userId") String userId, @Param("productId") String productId);
 
-    @Query("MATCH  (u:User {userId: {userId} }), (p:Product {productId: {productId} }) " +
+    @Query("MATCH  (u:User {userId: $userId }), (p:Product {productId: $productId }) " +
             "RETURN EXISTS( (u)-[:CLICKED]->(p) ) ")
     Boolean get(@Param("userId") String userId, @Param("productId") String productId);
 

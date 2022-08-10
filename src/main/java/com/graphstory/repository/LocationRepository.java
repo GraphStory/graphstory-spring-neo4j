@@ -11,11 +11,11 @@ public interface LocationRepository extends Neo4jRepository<Location,Long> {
     Location findByLocationId(String locationId);
     Location findByZip(String zip);
 
-    @Query(" MATCH (l:Location {locationId: {locationId} }) " +
+    @Query(" MATCH (l:Location {locationId: $locationId }) " +
             "RETURN l")
     Location getByLocationId(@Param("locationId") String locationId);
 
-    @Query("MATCH  (u:User {userId: {userId} }), (l:Location {locationId: {locationId} }) " +
+    @Query("MATCH  (u:User {userId: $userId }), (l:Location {locationId: $locationId }) " +
             "RETURN EXISTS( (u)-[:VIEWED]-(l) ) ")
     Boolean hasBeenViewed(@Param("userId") String userId, @Param("locationId") String locationId);
 
